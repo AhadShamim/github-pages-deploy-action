@@ -1,0 +1,21 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 8.15.1
+        uses: actions/setup-node@v1
+        with:
+          node-version: 8.15.1
+      - name: Build and Deploy
+        uses: AhadShamim/github-pages-deploy-action@dev
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BASE_BRANCH: dev
+          BRANCH: dev
+          FOLDER: dist/ang-website
+          BUILD_SCRIPT: npm install && npm run build -- --prod
